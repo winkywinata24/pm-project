@@ -109,16 +109,6 @@ export default function Index({ auth, users, queryParams = null, success }) {
                                             Email
                                         </TableHeading>
                                         <TableHeading
-                                            name="email_verified_at"
-                                            sort_field={queryParams.sort_field}
-                                            sort_direction={
-                                                queryParams.sort_direction
-                                            }
-                                            sortChanged={sortChanged}
-                                        >
-                                            Email Verified At
-                                        </TableHeading>
-                                        <TableHeading
                                             name="password"
                                             sort_field={queryParams.sort_field}
                                             sort_direction={
@@ -127,6 +117,16 @@ export default function Index({ auth, users, queryParams = null, success }) {
                                             sortChanged={sortChanged}
                                         >
                                             Password
+                                        </TableHeading>
+                                        <TableHeading
+                                            name="email_verified_at"
+                                            sort_field={queryParams.sort_field}
+                                            sort_direction={
+                                                queryParams.sort_direction
+                                            }
+                                            sortChanged={sortChanged}
+                                        >
+                                            Email Verified At
                                         </TableHeading>
                                         <th className="px-3 py-3 text-right">
                                             Action
@@ -141,11 +141,12 @@ export default function Index({ auth, users, queryParams = null, success }) {
                                     <tr className="text-nowrap">
                                         <th className="px-3 py-3"></th>
                                         <th className="px-3 py-3"></th>
+                                        <th className="px-3 py-3"></th>
                                         <th className="px-3 py-3">
                                             <TextInput
                                                 className="w-full"
                                                 defaultValue={queryParams.name}
-                                                placeholder="Username"
+                                                placeholder="Name"
                                                 onBlur={(e) =>
                                                     searchFieldChanged(
                                                         "name",
@@ -157,8 +158,6 @@ export default function Index({ auth, users, queryParams = null, success }) {
                                                 }
                                             />
                                         </th>
-                                        <th className="px-3 py-3"></th>
-                                        <th className="px-3 py-3"></th>
                                         <th className="px-3 py-3"></th>
                                         <th className="px-3 py-3"></th>
                                     </tr>
@@ -190,10 +189,10 @@ export default function Index({ auth, users, queryParams = null, success }) {
                                                 {user.email}
                                             </td>
                                             <td className="px-3 py-2">
-                                                {user.email_verified_at}
+                                                {user.password}
                                             </td>
                                             <td className="px-3 py-2">
-                                                {user.password}
+                                                {user.email_verified_at}
                                             </td>
                                             <td className="px-3 py-2 text-right">
                                                 <Link

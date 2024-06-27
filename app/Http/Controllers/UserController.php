@@ -7,7 +7,6 @@ use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -48,12 +47,6 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         $data = $request->validated();
-        $image = $data['image'] ?? null;
-        $data['created_by'] = Auth::id();
-        $data['updated_by'] = Auth::id();
-        if ($image){
-            $data['image_path'] = $image->store('user/'.Str::random(), 'public');
-        }
         User::create($data);
         return to_route('user.index')
         ->with('success', 'User was created');
@@ -97,14 +90,6 @@ class UserController extends Controller
     {
         $name = $user->name;
         $data = $request->validated();
-        $image = $data['image'] ?? null;
-        $data['updated_by'] = Auth::id();
-        if ($image){
-            if ($user->image_path) {
-                Storage::disk('public')->delete($user->image_path);
-            }
-            $data['image_path'] = $image->store('user/'.Str::random(), 'public');
-        }
         $user->update($data);
         return to_route('user.index')
         ->with('success', "User \"$name\" was updated");
